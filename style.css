@@ -9,6 +9,7 @@ body {
 	cursor: pointer;
 }
 .game-block {
+	--scale: 1;
 	width: 480px;
 	height: 850px;
 	background-color: #8a9eef;
@@ -20,6 +21,7 @@ body {
 	left: calc(50vw - 260px);
 	color: #f2ffcd;
 	font-weight: bold;
+	transform: scale(var(--scale));
 }
 .game-block > .header {
 	display: flex;
