@@ -50,7 +50,7 @@ class Block {
 								break
 							case 3:
 								console.log('Line: ' + line)
-								if (/.+->[$@\.].+/.test(line)) {
+								if (/.+-> *[$@\.].+/.test(line)) {
 									const arr = /(.+)->(.+)/.exec()
 									console.log('Arr:', arr)
 									this.slides[curSlide].buttons[arr[1]] =
