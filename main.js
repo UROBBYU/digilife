@@ -10,7 +10,54 @@ class Block {
 			fetch('tests/' + name)
 				.then((d) => d.text())
 				.then((blockFile) => {
-					console.log(blockFile)
+					this.lines = blockFile.split('\n')
+					this.vars = {}
+					this.slides = {}
+					let curSlide = ''
+					let stage = 0
+					for (const line of lines) {
+						switch (stage) {
+							case 0:
+								if (/#\w+?: .+/.test(line)) {
+									const arr = /#\w+?: .+/.exec(line)
+									this.vars[arr[1]] = arr[2]
+								} else if (/\$\w+?/.test(line)) {
+									curSlide = line.substr(1)
+									this.slides[curSlide] = {
+										buttons: {},
+									}
+									stage = 1
+								}
+								break
+							case 1:
+								if (/@.+/.test(line)) {
+									this.slides[
+										curSlide
+									].upper = `<img class="main-image" src="${line.substr(
+										1
+									)}"/>`
+								} else if (/'.+'/.test(line)) {
+									this.slides[curSlide].upper = line
+								}
+								stage = 2
+								break
+							case 2:
+								if (line.length > 0) {
+									this.slides[curSlide].lower = line
+								}
+								stage = 3
+								break
+							case 3:
+								if (/.+->[$@\.].+/.test(line)) {
+									const arr = /(.+)->(.+)/.exec()
+									this.slides[curSlide].buttons[arr[1]] =
+										arr[2]
+								} else {
+									stage = 0
+								}
+								break
+						}
+					}
 				})
 	}
 }
@@ -49,7 +96,7 @@ fetch('tests.json')
 		for (const blockName of blockList) {
 			const elem = createElement(`<div class="button">${blockName}</div>`)
 			elem.addEventListener('click', () => {
-				const a = new Block(blockName)
+				window.a = new Block(blockName)
 			})
 			gameList.append(elem)
 		}

@@ -1,9 +1,10 @@
-# title: Тестовий бланк
-# bd: #8695e6
-# bg1: #a2b1ed
-# bg2: #f2ffcd
-# fg1: #f2ffcd
-# fg2: #000
+#title: Тестовий бланк
+#start: $1
+#bd: #8695e6
+#bg1: #a2b1ed
+#bg2: #f2ffcd
+#fg1: #f2ffcd
+#fg2: #000
 
 $1
 @https://urepo.com.ua/img/Ghost%20Logo.svg
