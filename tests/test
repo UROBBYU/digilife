@@ -1,0 +1,21 @@
+# title: Тестовий бланк
+# bd: #8695e6
+# bg1: #a2b1ed
+# bg2: #f2ffcd
+# fg1: #f2ffcd
+# fg2: #000
+
+$1
+@https://urepo.com.ua/img/Ghost%20Logo.svg
+Заголовок1
+Кнопка1 -> $2
+Кнопка2 -> $3
+
+$2
+@http://urepo.com.ua/Icons/game/Background.jpg
+Заголовок2
+
+$3
+
+Заголовок3
+Завершити -> .end

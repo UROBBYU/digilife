@@ -1,0 +1,22 @@
+# title: Назва бланку
+# bd: #8695e6
+# bg1: #a2b1ed
+# bg2: #f2ffcd
+# fg1: #f2ffcd
+# fg2: #000
+
+$1
+@path/to/image.png
+Заголовок
+Кнопка1 -> $2
+Кнопка2 -> $3
+
+$2
+@path/to/image.png
+Заголовок
+Завершити -> .end
+
+$3
+@path/to/image.png
+Заголовок
+Завершити -> .end
