@@ -1,3 +1,20 @@
+window.createElement = (html) => {
+	const tmp = document.createElement('template')
+	tmp.innerHTML = html.trim()
+	return tmp.content.firstChild
+}
+
+class Block {
+	constructor(name) {
+		if (typeof name == 'string' && name.length > 0)
+			fetch('tests/' + name)
+				.then((d) => d.text())
+				.then((blockFile) => {
+					console.log(blockFile)
+				})
+	}
+}
+
 const updateScale = () => {
 	let blocks = document.querySelectorAll('.game-block')
 	for (const block of blocks) {
@@ -24,8 +41,16 @@ const blockText = `
 	</div>
 </div>`
 
+const gameList = document.querySelector('.game-list')
+
 fetch('tests.json')
 	.then((d) => d.json())
 	.then((blockList) => {
-		console.log(blockList)
+		for (const blockName of blockList) {
+			const elem = createElement(`<div class="button">${blockName}</div>`)
+			elem.addEventListener('click', () => {
+				const a = new Block(blockName)
+			})
+			gameList.append(elem)
+		}
 	})
