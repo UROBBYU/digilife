@@ -51,7 +51,7 @@ class Block {
 							case 3:
 								console.log('Line: ' + line)
 								if (/.+-> *[$@\.].+/.test(line)) {
-									const arr = /(.+)->(.+)/.exec()
+									const arr = /(.+)->(.+)/.exec(line)
 									console.log('Arr:', arr)
 									this.slides[curSlide].buttons[arr[1]] =
 										arr[2]
