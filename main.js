@@ -15,7 +15,7 @@ class Block {
 					this.slides = {}
 					let curSlide = ''
 					let stage = 0
-					for (const line of lines) {
+					for (const line of this.lines) {
 						switch (stage) {
 							case 0:
 								if (/#\w+?: .+/.test(line)) {
