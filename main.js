@@ -48,8 +48,10 @@ class Block {
 								stage = 3
 								break
 							case 3:
+								console.log('Line: ' + line)
 								if (/.+->[$@\.].+/.test(line)) {
 									const arr = /(.+)->(.+)/.exec()
+									console.log('Arr:', arr)
 									this.slides[curSlide].buttons[arr[1]] =
 										arr[2]
 								} else {
