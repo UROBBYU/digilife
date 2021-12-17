@@ -19,7 +19,7 @@ class Block {
 						switch (stage) {
 							case 0:
 								if (/#\w+?: .+/.test(line)) {
-									const arr = /#\w+?: .+/.exec(line)
+									const arr = /#(\w+?): (.+)/.exec(line)
 									console.log('Vars:', arr)
 									this.vars[arr[1]] = arr[2]
 								} else if (/\$\w+?/.test(line)) {
