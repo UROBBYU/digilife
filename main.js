@@ -18,12 +18,11 @@ class Block {
 					for (const line of this.lines) {
 						switch (stage) {
 							case 0:
-								if (/#\w+?: .+/.test(line)) {
-									const arr = /#(\w+?): (.+)/.exec(line)
-									console.log('Vars:', arr)
-									this.vars[arr[1]] = arr[2]
+								if (/#\w+?:.+/.test(line)) {
+									const arr = /#(\w+?):(.+)/.exec(line)
+									this.vars[arr[1].trim()] = arr[2].trim()
 								} else if (/\$\w+?/.test(line)) {
-									curSlide = line.substr(1)
+									curSlide = line.substring(1)
 									this.slides[curSlide] = {
 										buttons: {},
 									}
@@ -34,7 +33,7 @@ class Block {
 								if (/@.+/.test(line)) {
 									this.slides[
 										curSlide
-									].upper = `<img class="main-image" src="${line.substr(
+									].upper = `<img class="main-image" src="${line.substring(
 										1
 									)}"/>`
 								} else if (/'.+'/.test(line)) {
@@ -49,12 +48,11 @@ class Block {
 								stage = 3
 								break
 							case 3:
-								console.log('Line: ' + line)
 								if (/.+-> *[$@\.].+/.test(line)) {
 									const arr = /(.+)->(.+)/.exec(line)
-									console.log('Arr:', arr)
-									this.slides[curSlide].buttons[arr[1]] =
-										arr[2]
+									this.slides[curSlide].buttons[
+										arr[1].trim()
+									] = arr[2].trim()
 								} else {
 									stage = 0
 								}
