@@ -6,3 +6,26 @@ const updateScale = () => {
 }
 updateScale()
 window.addEventListener('resize', updateScale)
+
+const blockText = `
+<div class="game-block">
+	<div class="header">
+		<div class="title">Якийсь рандомний текст</div>
+		<div class="button close">&times;</div>
+	</div>
+	<img class="main-image" src="https://urepo.com.ua/img/Ghost%20Logo.svg"></img>
+	<div class="controls">
+		<div class="title">Вибір ваш:</div>
+		<div class="buttons">
+			<div>Кнопка1</div>
+			<div>Кнопка2</div>
+			<div>Кнопка з купою тексту</div>
+		</div>
+	</div>
+</div>`
+
+fetch('tests.json')
+	.then((d) => d.json())
+	.then((blockList) => {
+		console.log(blockList)
+	})
