@@ -1,0 +1,64 @@
+body {
+	font-family: 'Noto Sans';
+	background-color: #354255;
+	margin: 0;
+}
+.buttons > div,
+.button {
+	user-select: none;
+	cursor: pointer;
+}
+.game-block {
+	width: 480px;
+	height: 850px;
+	background-color: #8a9eef;
+	border-radius: 50px;
+	padding: 10px;
+	border: 10px solid #c3cdff;
+	position: fixed;
+	top: calc(50vh - 445px);
+	left: calc(50vw - 260px);
+	color: #f2ffcd;
+	font-weight: bold;
+}
+.game-block > .header {
+	display: flex;
+}
+.game-block > .header > .title {
+	margin-inline: auto;
+	line-height: 50px;
+	font-size: 1.8em;
+}
+.game-block > .header > .close {
+	width: 50px;
+	text-align: center;
+	line-height: 50px;
+	font-size: 2.5em;
+}
+.game-block > .main-image {
+	width: 480px;
+}
+.game-block > .controls > .title {
+	text-align: center;
+	margin-top: 18px;
+	font-size: 1.6em;
+}
+.game-block > .controls > .buttons {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: 1.3em;
+	gap: 15px;
+	margin-top: 18px;
+}
+.game-block > .controls > .buttons > div {
+	width: 220px;
+	background-color: #f5ffff;
+	color: #000;
+	border-radius: 35px;
+	height: 70px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
