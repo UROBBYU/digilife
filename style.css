@@ -21,6 +21,7 @@ header > .title {
 	font-size: 45px;
 	font-family: Nunito;
 	align-self: center;
+	user-select: none;
 }
 header > .title > span {
 	color: #fcb12e;
@@ -64,8 +65,8 @@ header > .info {
 	background-color: #fcb12e;
 	width: 120px;
 	align-self: center;
-	border-radius: 8px;
-	line-height: 30px;
+	border-radius: 16px;
+	line-height: 32px;
 	box-shadow: 0 0 1px #818181;
 }
 .overlay {
@@ -109,6 +110,9 @@ header > .info {
 .game-block > .upper > .main-image {
 	width: 480px;
 }
+.game-block > .upper > p[data-ctr=''] {
+	text-align: center;
+}
 .game-block > .controls > .title {
 	text-align: center;
 	margin-top: 18px;
@@ -123,7 +127,7 @@ header > .info {
 	margin-top: 18px;
 }
 .game-block > .controls > .buttons > div {
-	width: 220px;
+	width: 212px;
 	background-color: #f5ffff;
 	color: #000;
 	border-radius: 35px;
@@ -132,4 +136,5 @@ header > .info {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 8px;
 }

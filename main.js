@@ -33,7 +33,39 @@ class Block {
 							1
 						)}"/>`
 					} else if (/'.+'/.test(line)) {
-						this.slides[curSlide].upper = line
+						let str = line.trim()
+						str = str.substring(1, str.length - 1)
+
+						this.slides[curSlide].upper = str
+							.split('\\n')
+							.map(
+								(par) =>
+									`<p${
+										/.*\\t.+/.test(par)
+											? ' data-ctr=""'
+											: ''
+									}${
+										/.*\\s\[.+?,.+?\].+/.test(par)
+											? ` style="color:${
+													this.vars[
+														/.*\\s\[(.+?),.+?\].+/
+															.exec(par)[1]
+															.trim()
+													]
+											  };font-size:${
+													this.vars[
+														/.*\\s\[.+?,(.+?)\].+/
+															.exec(par)[1]
+															.trim()
+													]
+											  }"`
+											: ''
+									}>${par.replace(
+										/(\\t)|(\\s\[.+?,.+?\])/g,
+										''
+									)}</p>`
+							)
+							.join('')
 					}
 					stage = 2
 					break
