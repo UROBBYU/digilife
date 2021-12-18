@@ -92,6 +92,8 @@ header > .info {
 	color: #f2ffcd;
 	font-weight: bold;
 	transform: scale(var(--scale));
+	display: flex;
+	flex-direction: column;
 }
 .game-block > .header {
 	display: flex;
@@ -118,6 +120,9 @@ header > .info {
 }
 .game-block > .upper > p[data-ctr=''] {
 	text-align: center;
+}
+.game-block > .controls {
+	margin-block: auto 80px;
 }
 .game-block > .controls > .title {
 	text-align: center;
