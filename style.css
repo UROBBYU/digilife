@@ -139,6 +139,8 @@ header > .info {
 	font-size: 1.6em;
 }
 .game-block > .controls > .buttons {
+	--bg: #f5ffff;
+	--fg: #000;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -148,8 +150,8 @@ header > .info {
 }
 .game-block > .controls > .buttons > div {
 	width: 212px;
-	background-color: #f5ffff;
-	color: #000;
+	background-color: var(--bg);
+	color: var(--fg);
 	border-radius: 35px;
 	height: 70px;
 	text-align: center;

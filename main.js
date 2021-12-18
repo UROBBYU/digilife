@@ -154,6 +154,15 @@ window.addEventListener('resize', updateScale)
 
 			gameBlock.querySelector('.header .title').innerText =
 				block.vars.title
+			gameBlock.style.borderColor = block.vars.bd
+			gameBlock.style.backgroundColor = block.vars.bg1
+			gameBlock.style.color = block.vars.fg1
+			gameBlock
+				.querySelector('.controls > .buttons')
+				.style.setProperty('--bg', block.vars.bg2)
+			gameBlock
+				.querySelector('.controls > .buttons')
+				.style.setProperty('--fg', block.vars.fg2)
 
 			const updateSlide = (slide) => {
 				if (slide.upper) {
