@@ -33,7 +33,39 @@ class Block {
 							1
 						)}"/>`
 					} else if (/'.+'/.test(line)) {
-						this.slides[curSlide].upper = line
+						let str = line.trim()
+						str = str.substring(1, str.length - 1)
+
+						this.slides[curSlide].upper = str
+							.split('\\n')
+							.map(
+								(par) =>
+									`<p${
+										/.*\\t.+/.test(par)
+											? ' data-ctr=""'
+											: ''
+									}${
+										/.*\\s\[.+?,.+?\].+/.test(par)
+											? ` style="color:${
+													this.vars[
+														/.*\\s\[(.+?),.+?\].+/
+															.exec(par)[1]
+															.trim()
+													]
+											  };font-size:${
+													this.vars[
+														/.*\\s\[.+?,(.+?)\].+/
+															.exec(par)[1]
+															.trim()
+													]
+											  }"`
+											: ''
+									}>${par.replace(
+										/(\\t)|(\\s\[.+?,.+?\])/g,
+										''
+									)}</p>`
+							)
+							.join('')
 					}
 					stage = 2
 					break
@@ -96,6 +128,7 @@ window.addEventListener('resize', updateScale)
 	overlay.addEventListener('pointerdown', () =>
 		overlay.style.removeProperty('display')
 	)
+	gameBlock.addEventListener('pointerdown', (e) => e.stopPropagation())
 	gameBlock
 		.querySelector('.close')
 		.addEventListener('click', () =>
@@ -104,7 +137,7 @@ window.addEventListener('resize', updateScale)
 
 	for (const block of blocks) {
 		const elem = createElement(`
-		<div class="game-item" data-bg1="${block.vars.bg1}" data-bg2="${block.vars.bg2}">
+		<div class="game-item" style="border-color:${block.vars.bd};background-color:${block.vars.bg1};color:${block.vars.fg1}">
 			<div class="title">${block.vars.title}</div>
 			<div class="button start">Відкрити</div>
 		</div>`)
@@ -130,6 +163,7 @@ window.addEventListener('resize', updateScale)
 				} else lower.style.display = 'none'
 				if (Object.keys(slide.buttons).length) {
 					buttons.innerHTML = ''
+					buttons.style.removeProperty('display')
 					for (const name in slide.buttons) {
 						const val = slide.buttons[name]
 						const sstr = val.substring(1)
@@ -152,6 +186,9 @@ window.addEventListener('resize', updateScale)
 								}
 							})
 						}
+
+						elem.style.backgroundColor = block.vars.bg2
+						elem.style.color = block.vars.fg2
 
 						buttons.append(elem)
 					}
