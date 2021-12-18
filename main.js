@@ -96,6 +96,7 @@ window.addEventListener('resize', updateScale)
 	overlay.addEventListener('pointerdown', () =>
 		overlay.style.removeProperty('display')
 	)
+	gameBlock.addEventListener('pointerdown', (e) => e.stopPropagation())
 	gameBlock
 		.querySelector('.close')
 		.addEventListener('click', () =>
