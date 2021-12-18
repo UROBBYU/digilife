@@ -137,7 +137,7 @@ window.addEventListener('resize', updateScale)
 
 	for (const block of blocks) {
 		const elem = createElement(`
-		<div class="game-item" style="background-color:${block.vars.bg1};color:${block.vars.fg1}">
+		<div class="game-item" style="border-color:${block.vars.bd};background-color:${block.vars.bg1};color:${block.vars.fg1}">
 			<div class="title">${block.vars.title}</div>
 			<div class="button start">Відкрити</div>
 		</div>`)
@@ -186,6 +186,9 @@ window.addEventListener('resize', updateScale)
 								}
 							})
 						}
+
+						elem.style.backgroundColor = block.vars.bg2
+						elem.style.color = block.vars.fg2
 
 						buttons.append(elem)
 					}
