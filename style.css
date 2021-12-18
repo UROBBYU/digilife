@@ -63,6 +63,7 @@ header > .info {
 .game-item .start {
 	margin-top: auto;
 	background-color: #fcb12e;
+	color: #fff;
 	width: 120px;
 	align-self: center;
 	border-radius: 16px;
