@@ -107,6 +107,9 @@ header > .info {
 	line-height: 50px;
 	font-size: 2.5em;
 }
+.game-block > .upper {
+	font-size: 1.2em;
+}
 .game-block > .upper > .main-image {
 	width: 480px;
 }
