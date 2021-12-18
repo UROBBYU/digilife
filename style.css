@@ -113,6 +113,9 @@ header > .info {
 .game-block > .upper > .main-image {
 	width: 480px;
 }
+.game-block > .upper > p {
+	margin-block: 10px;
+}
 .game-block > .upper > p[data-ctr=''] {
 	text-align: center;
 }
