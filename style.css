@@ -8,6 +8,15 @@ body {
 	user-select: none;
 	cursor: pointer;
 }
+.overlay {
+	display: none;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-color: #000;
+	opacity: 0.4;
+	filter: blur(2px);
+}
 .game-block {
 	--scale: 1;
 	width: 480px;
@@ -16,7 +25,7 @@ body {
 	border-radius: 50px;
 	padding: 10px;
 	border: 10px solid #c3cdff;
-	position: fixed;
+	position: relative;
 	top: calc(50vh - 445px);
 	left: calc(50vw - 260px);
 	color: #f2ffcd;
@@ -37,7 +46,7 @@ body {
 	line-height: 50px;
 	font-size: 2.5em;
 }
-.game-block > .main-image {
+.game-block > .upper > .main-image {
 	width: 480px;
 }
 .game-block > .controls > .title {
