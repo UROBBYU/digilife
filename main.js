@@ -104,7 +104,7 @@ window.addEventListener('resize', updateScale)
 
 	for (const block of blocks) {
 		const elem = createElement(`
-		<div class="game-item" data-bg1="${block.vars.bg1}" data-bg2="${block.vars.bg2}">
+		<div class="game-item" style="background-color:${block.vars.bg1};color:${block.vars.fg1}">
 			<div class="title">${block.vars.title}</div>
 			<div class="button start">Відкрити</div>
 		</div>`)
@@ -130,6 +130,7 @@ window.addEventListener('resize', updateScale)
 				} else lower.style.display = 'none'
 				if (Object.keys(slide.buttons).length) {
 					buttons.innerHTML = ''
+					buttons.style.removeProperty('display')
 					for (const name in slide.buttons) {
 						const val = slide.buttons[name]
 						const sstr = val.substring(1)

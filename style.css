@@ -8,14 +8,72 @@ body {
 	user-select: none;
 	cursor: pointer;
 }
+header {
+	height: 60px;
+	display: flex;
+	flex-direction: column;
+}
+header > .title {
+	line-height: 60px;
+	color: #fff;
+	font-size: 45px;
+	font-family: Nunito;
+	align-self: center;
+}
+header > .title > span {
+	color: #fcb12e;
+}
+header > .info {
+	--size: 25px;
+	width: var(--size);
+	line-height: var(--size);
+	text-align: center;
+	height: var(--size);
+	border: calc(var(--size) / 8) solid #fff;
+	border-radius: 50%;
+	color: #fff;
+	font-weight: bold;
+	font-family: Georgia;
+	margin: calc((60px - var(--size) / 4 * 5) / 2);
+	margin-top: calc((60px - var(--size) / 4 * 5) / 2 - 60px);
+	font-size: calc(var(--size) / 8 * 7);
+	align-self: end;
+}
+.game-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+}
+.game-item {
+	width: 260px;
+	padding-block: 12px;
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 8px;
+	box-shadow: 0 0 1px #3a3a3a;
+	font-weight: bold;
+	font-size: 1.3em;
+	text-align: center;
+}
+.game-item .start {
+	margin-top: auto;
+	background-color: #fcb12e;
+	width: 120px;
+	align-self: center;
+	border-radius: 8px;
+	line-height: 30px;
+	box-shadow: 0 0 1px #818181;
+}
 .overlay {
 	display: none;
 	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: #000;
-	opacity: 0.4;
-	filter: blur(2px);
+	background-color: #0004;
 }
 .game-block {
 	--scale: 1;
