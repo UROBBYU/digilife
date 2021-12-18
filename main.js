@@ -5,61 +5,55 @@ window.createElement = (html) => {
 }
 
 class Block {
-	constructor(name) {
-		if (typeof name == 'string' && name.length > 0)
-			fetch('tests/' + name)
-				.then((d) => d.text())
-				.then((blockFile) => {
-					this.lines = blockFile.split('\n')
-					this.vars = {}
-					this.slides = {}
-					let curSlide = ''
-					let stage = 0
-					for (const line of this.lines) {
-						switch (stage) {
-							case 0:
-								if (/#\w+?:.+/.test(line)) {
-									const arr = /#(\w+?):(.+)/.exec(line)
-									this.vars[arr[1].trim()] = arr[2].trim()
-								} else if (/\$\w+?/.test(line)) {
-									curSlide = line.substring(1)
-									this.slides[curSlide] = {
-										buttons: {},
-									}
-									stage = 1
-								}
-								break
-							case 1:
-								if (/@.+/.test(line)) {
-									this.slides[
-										curSlide
-									].upper = `<img class="main-image" src="${line.substring(
-										1
-									)}"/>`
-								} else if (/'.+'/.test(line)) {
-									this.slides[curSlide].upper = line
-								}
-								stage = 2
-								break
-							case 2:
-								if (line.length > 0) {
-									this.slides[curSlide].lower = line
-								}
-								stage = 3
-								break
-							case 3:
-								if (/.+-> *[$@\.].+/.test(line)) {
-									const arr = /(.+)->(.+)/.exec(line)
-									this.slides[curSlide].buttons[
-										arr[1].trim()
-									] = arr[2].trim()
-								} else {
-									stage = 0
-								}
-								break
+	constructor(lines) {
+		this.lines = lines
+		this.vars = {}
+		this.slides = {}
+		let curSlide = ''
+		let stage = 0
+		for (const line of this.lines) {
+			switch (stage) {
+				case 0:
+					if (/#\w+?:.+/.test(line)) {
+						const arr = /#(\w+?):(.+)/.exec(line)
+						this.vars[arr[1].trim()] = arr[2].trim()
+					} else if (/\$\w+?/.test(line)) {
+						curSlide = line.substring(1)
+						this.slides[curSlide] = {
+							buttons: {},
 						}
+						stage = 1
 					}
-				})
+					break
+				case 1:
+					if (/@.+/.test(line)) {
+						this.slides[
+							curSlide
+						].upper = `<img class="main-image" src="${line.substring(
+							1
+						)}"/>`
+					} else if (/'.+'/.test(line)) {
+						this.slides[curSlide].upper = line
+					}
+					stage = 2
+					break
+				case 2:
+					if (line.length > 0) {
+						this.slides[curSlide].lower = line
+					}
+					stage = 3
+					break
+				case 3:
+					if (/.+-> *[$@\.].+/.test(line)) {
+						const arr = /(.+)->(.+)/.exec(line)
+						this.slides[curSlide].buttons[arr[1].trim()] =
+							arr[2].trim()
+					} else {
+						stage = 0
+					}
+					break
+			}
+		}
 	}
 }
 
@@ -71,34 +65,104 @@ const updateScale = () => {
 }
 updateScale()
 window.addEventListener('resize', updateScale)
+;(async () => {
+	const blockList = await (await fetch('tests.json')).json()
+	const blocks = []
+	const promises = []
 
-const blockText = `
-<div class="game-block">
-	<div class="header">
-		<div class="title">Якийсь рандомний текст</div>
-		<div class="button close">&times;</div>
-	</div>
-	<img class="main-image" src="https://urepo.com.ua/img/Ghost%20Logo.svg"></img>
-	<div class="controls">
-		<div class="title">Вибір ваш:</div>
-		<div class="buttons">
-			<div>Кнопка1</div>
-			<div>Кнопка2</div>
-			<div>Кнопка з купою тексту</div>
-		</div>
-	</div>
-</div>`
-
-const gameList = document.querySelector('.game-list')
-
-fetch('tests.json')
-	.then((d) => d.json())
-	.then((blockList) => {
-		for (const blockName of blockList) {
-			const elem = createElement(`<div class="button">${blockName}</div>`)
-			elem.addEventListener('click', () => {
-				window.a = new Block(blockName)
-			})
-			gameList.append(elem)
+	for (const blockName of blockList) {
+		if (typeof blockName == 'string' && blockName.length > 0) {
+			promises.push(
+				new Promise(async (res) => {
+					blocks.push(
+						new Block(
+							(
+								await (await fetch('tests/' + blockName)).text()
+							).split('\n')
+						)
+					)
+					res()
+				})
+			)
 		}
-	})
+	}
+
+	await Promise.all(promises)
+
+	const gameList = document.querySelector('.game-list')
+	const overlay = document.querySelector('.overlay')
+	const gameBlock = overlay.querySelector('.game-block')
+
+	overlay.addEventListener('pointerdown', () =>
+		overlay.style.removeProperty('display')
+	)
+	gameBlock
+		.querySelector('.close')
+		.addEventListener('click', () =>
+			overlay.style.removeProperty('display')
+		)
+
+	for (const block of blocks) {
+		const elem = createElement(`
+		<div class="game-item" data-bg1="${block.vars.bg1}" data-bg2="${block.vars.bg2}">
+			<div class="title">${block.vars.title}</div>
+			<div class="button start">Відкрити</div>
+		</div>`)
+
+		elem.querySelector('.start').addEventListener('click', () => {
+			const firstSlide = block.slides[block.vars.start.substring(1)]
+
+			const upper = gameBlock.querySelector('.upper')
+			const lower = gameBlock.querySelector('.controls .title')
+			const buttons = gameBlock.querySelector('.controls .buttons')
+
+			gameBlock.querySelector('.header .title').innerText =
+				block.vars.title
+
+			const updateSlide = (slide) => {
+				if (slide.upper) {
+					upper.innerHTML = slide.upper
+					upper.style.removeProperty('display')
+				} else upper.style.display = 'none'
+				if (slide.lower) {
+					lower.innerText = slide.lower
+					lower.style.removeProperty('display')
+				} else lower.style.display = 'none'
+				if (Object.keys(slide.buttons).length) {
+					buttons.innerHTML = ''
+					for (const name in slide.buttons) {
+						const val = slide.buttons[name]
+						const sstr = val.substring(1)
+
+						let tag = `<div>${name}</div>`
+						if (val.startsWith('@'))
+							tag = `<a href="${sstr}" target="_blank">${name}</a>`
+						const elem = createElement(tag)
+
+						if (val.startsWith('$'))
+							elem.addEventListener('click', () =>
+								updateSlide(block.slides[sstr])
+							)
+						else if (val.startsWith('.')) {
+							elem.addEventListener('click', () => {
+								switch (sstr) {
+									case 'end':
+										overlay.style.removeProperty('display')
+										break
+								}
+							})
+						}
+
+						buttons.append(elem)
+					}
+				} else buttons.style.display = 'none'
+			}
+
+			updateSlide(firstSlide)
+
+			overlay.style.display = 'block'
+		})
+
+		gameList.append(elem)
+	}
+})()

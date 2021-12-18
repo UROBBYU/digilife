@@ -1,14 +1,14 @@
-# title: Темний консультант
-# start: $1
-# bd: #8695e6
-# bg1: #a2b1ed
-# bg2: #f2ffcd
-# fg1: #f2ffcd
-# fg2: #000
-# win1: #bfb
-# win2: 1.3em
-# end1: #f00
-# end2: 1.3em
+#title: Темний консультант
+#start: $1
+#bd: #8695e6
+#bg1: #a2b1ed
+#bg2: #f2ffcd
+#fg1: #f2ffcd
+#fg2: #000
+#win1: #bfb
+#win2: 1.3em
+#end1: #f00
+#end2: 1.3em
 
 $1
 @path/to/image.png
