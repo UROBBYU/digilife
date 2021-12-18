@@ -51,7 +51,7 @@ header > .info {
 .game-item {
 	width: 260px;
 	padding-block: 12px;
-	height: 200px;
+	height: 352px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 8px;
@@ -59,6 +59,14 @@ header > .info {
 	font-weight: bold;
 	font-size: 1.3em;
 	text-align: center;
+}
+.game-item > .title {
+	line-height: 30px;
+}
+.game-item > .icon {
+	width: 260px;
+	height: 260px;
+	margin-top: auto;
 }
 .game-item .start {
 	margin-top: auto;
