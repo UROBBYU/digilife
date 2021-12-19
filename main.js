@@ -91,10 +91,9 @@ class Block {
 }
 
 const updateScale = () => {
-	let blocks = document.querySelectorAll('.game-block')
-	for (const block of blocks) {
-		block.style.setProperty('--scale', window.innerHeight / 960)
-	}
+	document
+		.querySelector('.overlay')
+		.style.setProperty('--scale', window.innerHeight / 960)
 }
 updateScale()
 window.addEventListener('resize', updateScale)
@@ -126,16 +125,29 @@ window.addEventListener('resize', updateScale)
 	const gameList = document.querySelector('.game-list')
 	const overlay = document.querySelector('.overlay')
 	const gameBlock = overlay.querySelector('.game-block')
+	const infoButton = document.querySelector('.button.info')
+	const info = overlay.querySelector('.info')
 
-	overlay.addEventListener('pointerdown', () =>
+	overlay.addEventListener('pointerdown', () => {
 		overlay.style.removeProperty('display')
-	)
+		gameBlock.style.removeProperty('display')
+		info.style.removeProperty('display')
+	})
 	gameBlock.addEventListener('pointerdown', (e) => e.stopPropagation())
-	gameBlock
-		.querySelector('.close')
-		.addEventListener('click', () =>
-			overlay.style.removeProperty('display')
-		)
+	gameBlock.querySelector('.close').addEventListener('click', () => {
+		overlay.style.removeProperty('display')
+		gameBlock.style.removeProperty('display')
+	})
+	info.addEventListener('pointerdown', (e) => e.stopPropagation())
+	info.querySelector('.close').addEventListener('click', () => {
+		overlay.style.removeProperty('display')
+		info.style.removeProperty('display')
+	})
+
+	infoButton.addEventListener('click', () => {
+		overlay.style.display = 'block'
+		info.style.display = 'flex'
+	})
 
 	for (const block of blocks) {
 		const elem = createElement(`
@@ -194,6 +206,9 @@ window.addEventListener('resize', updateScale)
 								switch (sstr) {
 									case 'end':
 										overlay.style.removeProperty('display')
+										gameBlock.style.removeProperty(
+											'display'
+										)
 										break
 								}
 							})
@@ -210,6 +225,7 @@ window.addEventListener('resize', updateScale)
 			updateSlide(firstSlide)
 
 			overlay.style.display = 'block'
+			gameBlock.style.display = 'flex'
 		})
 
 		gameList.append(elem)

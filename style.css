@@ -80,6 +80,7 @@ header > .info {
 	box-shadow: 0 0 1px #818181;
 }
 .overlay {
+	--scale: 1;
 	display: none;
 	position: fixed;
 	top: 0;
@@ -88,8 +89,23 @@ header > .info {
 	height: 100vh;
 	background-color: #0004;
 }
+.overlay > .info {
+	display: none;
+	width: 480px;
+	height: 850px;
+	background-color: #354255;
+	border-radius: 50px;
+	padding: 10px;
+	border: 10px solid #2a374b;
+	position: relative;
+	top: calc(50vh - 445px);
+	left: calc(50vw - 260px);
+	color: #fff;
+	transform: scale(var(--scale));
+	flex-direction: column;
+}
 .game-block {
-	--scale: 1;
+	display: none;
 	width: 480px;
 	height: 850px;
 	background-color: #8a9eef;
@@ -102,7 +118,6 @@ header > .info {
 	color: #f2ffcd;
 	font-weight: bold;
 	transform: scale(var(--scale));
-	display: flex;
 	flex-direction: column;
 }
 .game-block > .header {
