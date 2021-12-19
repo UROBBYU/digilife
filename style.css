@@ -21,10 +21,11 @@ header > .title {
 	color: #fff;
 	font-size: 45px;
 	font-family: Nunito;
+	font-style: italic;
 	align-self: center;
 	user-select: none;
 }
-header > .title > span {
+.title > span {
 	color: #fcb12e;
 }
 header > .info {
@@ -103,6 +104,35 @@ header > .info {
 	color: #fff;
 	transform: scale(var(--scale));
 	flex-direction: column;
+	font-family: Nunito;
+	font-size: 1.1em;
+}
+.overlay > .info > * > span,
+.overlay > .info > .authors > p:first-child {
+	color: #fcb12e;
+	font-weight: 600;
+}
+.overlay > .info .close {
+	margin-left: auto;
+	width: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 2.5em;
+}
+.overlay > .info .title {
+	text-align: center;
+	font-size: 3em;
+	margin-block: 0;
+	font-style: italic;
+}
+.overlay > .info > .authors > p {
+	margin-block: 0;
+}
+.overlay > .info > .authors span {
+	color: #bbb;
+}
+.overlay > .info > a > svg {
+	fill: white;
 }
 .game-block {
 	display: none;
