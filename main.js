@@ -5,8 +5,9 @@ window.createElement = (html) => {
 }
 
 class Block {
-	constructor(lines) {
+	constructor(lines, name) {
 		this.lines = lines
+		this.name = name
 		this.vars = {}
 		this.slides = {}
 		let curSlide = ''
@@ -110,7 +111,8 @@ window.addEventListener('resize', updateScale)
 						new Block(
 							(
 								await (await fetch('tests/' + blockName)).text()
-							).split('\n')
+							).split('\n'),
+							blockName
 						)
 					)
 					res()
@@ -139,6 +141,7 @@ window.addEventListener('resize', updateScale)
 		const elem = createElement(`
 		<div class="game-item" style="border-color:${block.vars.bd};background-color:${block.vars.bg1};color:${block.vars.fg1}">
 			<div class="title">${block.vars.title}</div>
+			<img class="icon" src="img/${block.name}.svg"/>
 			<div class="button start">Відкрити</div>
 		</div>`)
 
@@ -151,6 +154,15 @@ window.addEventListener('resize', updateScale)
 
 			gameBlock.querySelector('.header .title').innerText =
 				block.vars.title
+			gameBlock.style.borderColor = block.vars.bd
+			gameBlock.style.backgroundColor = block.vars.bg1
+			gameBlock.style.color = block.vars.fg1
+			gameBlock
+				.querySelector('.controls > .buttons')
+				.style.setProperty('--bg', block.vars.bg2)
+			gameBlock
+				.querySelector('.controls > .buttons')
+				.style.setProperty('--fg', block.vars.fg2)
 
 			const updateSlide = (slide) => {
 				if (slide.upper) {
