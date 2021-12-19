@@ -3,7 +3,7 @@
 #bd: #59d098
 #bg1: #4fc48d
 #bg2: #f2ffcd
-#fg1: #d6f3ff
+#fg1: #edfaff
 #fg2: #000
 #win1: #c8ff65
 #win2: 2em
@@ -11,7 +11,7 @@
 #end2: 2em
 
 $1
-@path/to/image.png
+@img/comet-1.svg
 Ваш вибір:
 Пк за 11000 -> $2
 Пк за 9200 -> $3
