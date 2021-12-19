@@ -12,6 +12,7 @@ body {
 }
 header {
 	height: 60px;
+	margin-block: 15px;
 	display: flex;
 	flex-direction: column;
 }
